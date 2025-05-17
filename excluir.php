@@ -16,42 +16,39 @@
 
         require_once 'validacoes.php';
 
-        id_nao_informado("ID não informado"); // verifica se o id foi informado via get
+        id_nao_informado("ID não informado"); 
 
-        require_once 'conexao.php'; // incluir arquivo de conexão com o BD
+        require_once 'conexao.php'; 
 
-        $id = (int)$_GET['id']; // type cast para tipo id recebido via get
-        // type cast = converter um valor para um tipo específico
+        $id = (int)$_GET['id']; 
 
-        $conn = conectar_banco(); // conecta ao banco de dados
+        $conn = conectar_banco(); 
         
         $sql = "DELETE FROM tb_clientes WHERE id = ?";
 
         $stmt = mysqli_prepare($conn, $sql);
 
-        verificar_erro_stmt($stmt); // verifica se há erros neste statement (declaração)
+        verificar_erro_stmt($stmt); 
 
         $bind = mysqli_stmt_bind_param($stmt, "i", $id);
 
-        verificar_bind_stmt($bind); // verifica se há erros no bind (associação) dos parâmetros
+        verificar_bind_stmt($bind); 
 
-        // Executa o comando e verifica o retorno
         $exe = mysqli_stmt_execute($stmt);
 
-        verificar_erro_execucao($exe, $stmt, "Erro ao excluir cliente"); // verifica se há erro na execução do stmt
+        verificar_erro_execucao($exe, $stmt, "Erro ao excluir cliente");
+
         
-        // se, ao executar o comando DELETE, nenhum registro for excluído com base no
-        // id fornecido, apresenta o erro abaixo e encerra o script
 
         nao_ha_linhas_afetadas($conn, "Não foi possível excluir o cliente com o ID especificado");
             
-        // se passou por todas as validações, apresenta msg de sucesso
+        
         echo '<h3 class="alert alert-success">Cliente excluído com sucesso!</h3>';
                 
-        mysqli_stmt_close($stmt); // encerrar o stmt
+        mysqli_stmt_close($stmt); 
 
-        mysqli_close($conn); // encerra a conexao com o bd
-    
+        mysqli_close($conn); 
+        
     
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>

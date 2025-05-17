@@ -49,30 +49,27 @@
 
         } else {
 
-            // se chegamos na página via get:
-            // verificar se recebemos um id
+            
             if (!isset($_GET['id'])) {
                 exit('<h3 class="alert alert-warning">ID não informado</h3>');
             }
 
-            $id = (int) $_GET['id']; // armazenamos o id em uma variável local
+            $id = (int) $_GET['id']; 
 
 
-            $conn = conectar_banco(); // conexão com o bd
+            $conn = conectar_banco(); 
 
             $query = "SELECT * FROM tb_clientes WHERE id = $id";
 
             $resultado = mysqli_query($conn, $query);
 
-            // se, ao tentar fazer um select, não for encontrado um cliente com o id fornecido
+
             if (!mysqli_num_rows($resultado) > 0) {
-                // mensagem de erro e encerramos o script
+                
                 exit('<h3 class="alert alert-warning">Cliente não localizado</h3>');
             }
 
-            // se não foi disparado a mensagem de erro, prosseguimos:
-            // variavel local 'cliente' se tornará um array associativo contendo os dados
-            // do cliente retornado pelo nosso SELECT e armazenado na variável 'resultado'
+            
             $cliente = mysqli_fetch_assoc($resultado)
             ?>
 
